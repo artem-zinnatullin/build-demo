@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="MyProgram">
+    <property name="build.dir" value="out"/>
+    <property name="b.build.dir" value="${build.dir}/b"/>
+    <property name="a.build.dir" value="${build.dir}/a"/>
+    <property name="myprogram.build.dir" value="${build.dir}/myprogram"/>
+
+    <path id="b.classpath" location="${build.dir}/b"/>
+    <path id="a.classpath" location="${build.dir}/a"/>
+
+    <target name="clean">
+        <delete>
+            <fileset dir="${build.dir}">
+                <include name="**/*.class"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="b">
+        <mkdir dir="${b.build.dir}"/>
+        <javac destdir="${b.build.dir}" includeantruntime="false" source="1.8" target="1.8">
+            <src path="b/src/main/java/com/artemzin/b"/>
+        </javac>
+    </target>
+
+<target name="a" depends="b">
+    <mkdir dir="${a.build.dir}"/>
+    <javac destdir="${a.build.dir}" includeantruntime="false" source="1.8" target="1.8">
+        <classpath refid="b.classpath"/>
+        <src path="a/src/main/java/com/artemzin/a"/>
+    </javac>
+</target>
+
+    <target name="myprogram" depends="a">
+        <mkdir dir="${myprogram.build.dir}"/>
+        <javac destdir="${myprogram.build.dir}" includeantruntime="false" source="1.8" target="1.8">
+            <classpath refid="a.classpath"/>
+            <classpath refid="b.classpath"/>
+            <src path="myprogram/src/main/java/com/artemzin"/>
+        </javac>
+    </target>
+</project>
