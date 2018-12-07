@@ -26,4 +26,11 @@ local.properties
 *.iml
 .idea/
 
+# Bazel
+bazel-bazel
+bazel-bin
+bazel-genfiles
+bazel-out
+bazel-testlogs
+
 *.DS_STORE
